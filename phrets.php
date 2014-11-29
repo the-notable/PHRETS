@@ -1,36 +1,89 @@
 <?php
 
-class phRETS {
+namespace TroyDavisson;
 
 /**
-*  PHRETS - PHP library for RETS
-*  version 1.0.2
-*  http://troda.com/projects/phrets/
-*  Copyright (C) 2007-2014 Troy Davisson
-*  please submit problem or error reports to https://github.com/troydavisson/PHRETS/issues
-*
-*  All rights reserved.
-*  Permission is hereby granted, free of charge, to use, copy or modify this software.  Use at your own risk.
-*
-*  This library is divided into 2 sections: high level and low level
-*    High level: Helpful functions that take much of the burden out of processing RETS data
-*    Low level: Framework for communicating with a RETS server.  High level functions sit on top of these
-*
-*/
+ * Class PhRets
+ *
+ * PHP library for RETS
+ *
+ * Copyright (C) 2007-2014 Troy Davisson
+ * please submit problem or error reports to https://github.com/troydavisson/PHRETS/issues
+ *
+ * All rights reserved.
+ * Permission is hereby granted, free of charge, to use, copy or modify this software.  Use at your own risk.
+ *
+ * This library is divided into 2 sections: high level and low level
+ *    High level: Helpful functions that take much of the burden out of processing RETS data
+ *    Low level: Framework for communicating with a RETS server.  High level functions sit on top of these*
+ *
+ * @version 1.0.2
+ * @link http://troda.com/projects/phrets/
+ * @package TroyDavisson
+ */
+class PhRets
+{
 
-	public $capability_url = array();
-	private $ch;
-	private $server_hostname;
-	private $server_port;
-	private $server_protocol;
-	private $server_version;
-	private $server_software;
-	private $static_headers = array();
-	private $server_information = array();
-	private $cookie_file = "";
-	private $debug_file = "rets_debug.txt";
-	private $debug_mode;
-	private $allowed_capabilities = array(
+    /**
+     * @var array
+     */
+    public $capability_url = array();
+
+    /**
+     * @var resource
+     */
+    private $ch;
+
+    /**
+     * @var string
+     */
+    private $server_hostname;
+
+    /**
+     * @var int
+     */
+    private $server_port;
+
+    /**
+     * @var string
+     */
+    private $server_protocol;
+
+    /**
+     * @var string
+     */
+    private $server_version;
+
+    /**
+     * @var string
+     */
+    private $server_software;
+    /**
+     * @var array
+     */
+    private $static_headers = array();
+    /**
+     * @var array
+     */
+    private $server_information = array();
+    /**
+     * @var string
+     */
+    private $cookie_file = "";
+    /**
+     * @var string
+     */
+    private $debug_file = "rets_debug.txt";
+
+    /**
+     * @var bool
+     */
+    private $debug_mode;
+
+    /**
+     * @var array
+     */
+    private $allowed_capabilities = array(
 			"Action" => 1,
 			"ChangePassword" => 1,
 			"GetObject" => 1,
@@ -44,109 +97,285 @@ class phRETS {
 			"PostObject" => 1,
 			"GetPayloadList" => 1
 			);
-	private $last_request = array();
-	private $auth_support_basic = false;
-	private $auth_support_digest = false;
-	private $last_response_headers = array();
-	private $last_response_headers_raw = "";
-	private $last_remembered_header = "";
-	private $compression_enabled = false;
-	private $ua_pwd = "";
-	private $ua_auth = false;
-	private $request_id = "";
-	private $disable_follow_location = false;
-	private $force_basic_authentication = false;
-	private $use_interealty_ua_auth = false;
-	private $int_result_pointer = 0;
-	private $error_info = array();
-	private $last_request_url;
-	private $last_server_response;
-	private $session_id;
-	private $catch_last_response = false;
-	private $disable_encoding_fix = false;
-	private $offset_support = false;
-	private $override_offset_protection = false;
-	private $use_post_method = false;
-	private $search_data = array();
+
+    /**
+     * @var array
+     */
+    private $last_request = array();
+
+    /**
+     * @var bool
+     */
+    private $auth_support_basic = false;
+
+    /**
+     * @var bool
+     */
+    private $auth_support_digest = false;
+
+    /**
+     * @var array
+     */
+    private $last_response_headers = array();
+
+    /**
+     * @var string
+     */
+    private $last_response_headers_raw = "";
+
+    /**
+     * @var string
+     */
+    private $last_remembered_header = "";
+
+    /**
+     * @var bool
+     */
+    private $compression_enabled = false;
+
+    /**
+     * @var string
+     */
+    private $ua_pwd = "";
+
+    /**
+     * @var bool
+     */
+    private $ua_auth = false;
+
+    /**
+     * @var string
+     */
+    private $request_id = "";
+
+    /**
+     * @var bool
+     */
+    private $disable_follow_location = false;
+
+    /**
+     * @var bool
+     */
+    private $force_basic_authentication = false;
+
+    /**
+     * @var bool
+     */
+    private $use_interealty_ua_auth = false;
+
+    /**
+     * @var int
+     */
+    private $int_result_pointer = 0;
+
+    /**
+     * @var array
+     */
+    private $error_info = array();
+
+    /**
+     * @var string
+     */
+    private $last_request_url;
+
+    /**
+     * @var string
+     */
+    private $last_server_response;
+
+    /**
+     * @var string
+     */
+    private $session_id;
+
+    /**
+     * @var bool
+     */
+    private $catch_last_response = false;
+
+    /**
+     * @var bool
+     */
+    private $disable_encoding_fix = false;
+
+    /**
+     * @var bool
+     */
+    private $offset_support = false;
+
+    /**
+     * @var bool
+     */
+    private $override_offset_protection = false;
+
+    /**
+     * @var bool
+     */
+    private $use_post_method = false;
+
+    /**
+     * @var array
+     */
+    private $search_data = array();
+
+    /**
+     * Holds informational messages
+     *
+     * @var array
+     */
+    private $messages = array();
 
 	public function __construct() { }
 
-	public function GetLastServerResponse() {
+    /**
+     * Pushes a message onto end of message array
+     *
+     * @param string $message
+     */
+    private function addMessage($message)
+    {
+        $this->messages[] = $message;
+    }
+
+    /**
+     * Resets messages to an empty array
+     */
+    private function clearMessages()
+    {
+        $this->messages = array();
+    }
+
+    /**
+     * Returns informational messages and resets messages array
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        $messages = $this->messages;
+        $this->clearMessages();
+        return $messages;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastServerResponse()
+    {
 		return $this->last_server_response;
 	}
 
-	public function FirewallTest() {
-		$google = $this->FirewallTestConn("google.com", 80);
-		$crt80 = $this->FirewallTestConn("demo.crt.realtors.org", 80);
-		$crt6103 = $this->FirewallTestConn("demo.crt.realtors.org", 6103);
-		$flexmls80 = $this->FirewallTestConn("retsgw.flexmls.com", 80);
-		$flexmls6103 = $this->FirewallTestConn("retsgw.flexmls.com", 6103);
+    /**
+     * Tests outgoing connections on using different domains and ports.
+     *
+     * Tested domains/ports:
+     *  google.com 80
+     *  demo.crt.realtors.org 80
+     *  demo.crt.realtors.org 6103
+     *  retsgw.flexmls.com 80
+     *  retsgw.flexmls.com 6103
+     *
+     * Test passes/failures both log messages. Use getMessages() to retrieve
+     *
+     * @return bool
+     */
+    public function firewallTest()
+    {
+
+		$google = $this->firewallTestConn("google.com", 80);
+		$crt80 = $this->firewallTestConn("demo.crt.realtors.org", 80);
+		$crt6103 = $this->firewallTestConn("demo.crt.realtors.org", 6103);
+		$flexmls80 = $this->firewallTestConn("retsgw.flexmls.com", 80);
+		$flexmls6103 = $this->firewallTestConn("retsgw.flexmls.com", 6103);
 
 		if (!$google && !$crt80 && !$crt6103 && !$flexmls80 && !$flexmls6103) {
-			echo "Firewall Result: All tests failed.  Possible causes:";
-			echo "<ol>";
-			echo "<li>Firewall is blocking your outbound connections</li>";
-			echo "<li>You aren't connected to the internet</li>";
-			echo "</ol>";
+			$message = "Firewall Result: All tests failed.  Possible causes:"
+			. "<ol>"
+			. "<li>Firewall is blocking your outbound connections</li>"
+			. "<li>You aren't connected to the internet</li>"
+			. "</ol>";
+            $this->addMessage($message);
 			return false;
 		}
 
 		if (!$crt6103 && !$flexmls6103) {
-			echo "Firewall Result: All port 6103 tests failed.  ";
-			echo "Likely cause: Firewall is blocking your outbound connections on port 6103.";
+			$message = "Firewall Result: All port 6103 tests failed.  "
+			. "Likely cause: Firewall is blocking your outbound connections on port 6103.";
+            $this->addMessage($message);
 			return false;
 		}
 
 		if ($google && $crt6103 && $crt80 && $flexmls6103 && $flexmls80) {
-			echo "Firewall Result: All tests passed.";
+			$message = "Firewall Result: All tests passed.";
+            $this->addMessage($message);
 			return true;
 		}
 
 		if (($crt6103 && !$flexmls6103) || (!$crt6103 && $flexmls6103)) {
-			echo "Firewall Result: At least one port 6103 test passed.  ";
-			echo "Likely cause: One of the test servers might be down but connections on port 80 and port 6103 should work.";
+            $message = "Firewall Result: At least one port 6103 test passed.  "
+			. "Likely cause: One of the test servers might be down but connections on port 80 and port 6103 should work.";
+            $this->addMessage($message);
 			return true;
 		}
 
 		if (!$google || !$crt80 || !$flexmls80) {
-			echo "Firewall Result: At least one port 80 test failed.  ";
-			echo "Likely cause: One of the test servers might be down.";
+            $message = "Firewall Result: At least one port 80 test failed.  "
+			. "Likely cause: One of the test servers might be down.";
+            $this->addMessage($message);
 			return true;
 		}
 
-		echo "Firewall Results: Unable to guess the issue.  See individual test results above.";
+        $message = "Firewall Results: Unable to guess the issue.  See individual test results above.";
+        $this->addMessage($message);
 		return false;
 	}
 
-	private function FirewallTestConn($hostname, $port = 6103) {
+    /**
+     * @param sting $hostname
+     * @param int $port
+     * @return bool
+     */
+    private function firewallTestConn($hostname, $port = 6103)
+    {
 		$fp = @fsockopen($hostname, $port, $errno, $errstr, 5);
-
 		if (!$fp) {
-			echo "Firewall Test: {$hostname}:{$port} FAILED<br>\n";
+			$message = "Firewall Test: {$hostname}:{$port} FAILED<br>\n";
+            $this->addMessage($message);
 			return false;
 		}
 		else {
 			@fclose($fp);
-			echo "Firewall Test: {$hostname}:{$port} GOOD<br>\n";
+            $message = "Firewall Test: {$hostname}:{$port} GOOD<br>\n";
+            $this->addMessage($message);
 			return true;
 		}
 	}
 
-	public function GetObject($resource, $type, $id, $photo_number = '*', $location = 0) {
+    /**
+     * @param string $resource
+     * @param string $type
+     * @param string $id
+     * @param string $photo_number
+     * @param int $location
+     * @throws \Exception
+     * @return array
+     */
+    public function getObject($resource, $type, $id, $photo_number = '*', $location = 0)
+    {
 		$this->reset_error_info();
 		$return_photos = array();
 
 		if (empty($resource)) {
-			die("Resource parameter is required for GetObject() request.");
+			throw new \Exception("Resource parameter is required for GetObject() request.");
 		}
 		if (empty($type)) {
-			die("Type parameter is required for GetObject() request.");
+            throw new \Exception("Type parameter is required for GetObject() request.");
 		}
 		if (empty($id)) {
-			die("ID parameter is required for GetObject() request.");
+            throw new \Exception("ID parameter is required for GetObject() request.");
 		}
 		if (empty($this->capability_url['GetObject'])) {
-			die("GetObject() called but unable to find GetObject location.  Failed login?\n");
+            throw new \Exception("GetObject() called but unable to find GetObject location.  Failed login?\n");
 		}
 
 		$send_id = "";
@@ -396,28 +625,48 @@ class phRETS {
 		return $return_photos;
 	}
 
-	public function IsMaxrowsReached($pointer_id = "") {
+    /**
+     * @param int $pointer_id
+     * @return bool
+     */
+    public function isMaxrowsReached($pointer_id = null)
+    {
 		if (empty($pointer_id)) {
 			$pointer_id = $this->int_result_pointer;
 		}
 		return $this->search_data[$pointer_id]['maxrows_reached'];
 	}
 
-	public function TotalRecordsFound($pointer_id = "") {
+    /**
+     * @param int $pointer_id
+     * @return int
+     */
+    public function totalRecordsFound($pointer_id = null)
+    {
 		if (empty($pointer_id)) {
 			$pointer_id = $this->int_result_pointer;
 		}
 		return $this->search_data[$pointer_id]['total_records_found'];
 	}
 
-	public function NumRows($pointer_id = "") {
+    /**
+     * @param int $pointer_id
+     * @return int
+     */
+    public function numRows($pointer_id = null)
+    {
 		if (empty($pointer_id)) {
 			$pointer_id = $this->int_result_pointer;
 		}
 		return $this->search_data[$pointer_id]['last_search_returned'];
 	}
 
-	public function SearchGetFields($pointer_id) {
+    /**
+     * @param $pointer_id
+     * @return array
+     */
+    public function searchGetFields($pointer_id)
+    {
 		if (!empty($pointer_id)) {
 			return $this->search_data[$pointer_id]['column_names'];
 		}
@@ -426,7 +675,12 @@ class phRETS {
 		}
 	}
 
-	public function FreeResult($pointer_id) {
+    /**
+     * @param int $pointer_id
+     * @return bool
+     */
+    public function freeResult($pointer_id)
+    {
 		if (!empty($pointer_id)) {
 			unset($this->search_data[$pointer_id]['data']);
 			unset($this->search_data[$pointer_id]['delimiter_character']);
@@ -438,10 +692,18 @@ class phRETS {
 		}
 	}
 
-	public function FetchRow($pointer_id) {
+    /**
+     * @param int $pointer_id
+     * @throws \Exception
+     * @return array|bool
+     */
+    public function fetchRow($pointer_id)
+    {
+        if(!is_numeric($pointer_id)){
+            throw new \Exception('Parameter one must be a numeric type');
+        }
 
 		$this_row = false;
-
 		if (!empty($pointer_id)) {
 
 			if (isset($this->search_data[$pointer_id]['data'])) {
@@ -463,24 +725,46 @@ class phRETS {
 				}
 			}
 			else {
-				$this->FreeResult($pointer_id);
+				$this->freeResult($pointer_id);
 			}
 		}
-
 		return $this_row;
 	}
 
-	public function SearchQuery($resource, $class, $query = "", $optional_params = array()) {
+    /**
+     * @param string $resource
+     * @param string $class
+     * @param string $query
+     * @param array $optional_params
+     * @return int
+     * @throws \Exception
+     */
+    public function searchQuery($resource, $class, $query = "", $optional_params = array())
+    {
 		$this->reset_error_info();
 
 		if (empty($resource)) {
-			die("Resource parameter is required in SearchQuery() request.");
+			throw new \Exception("Resource parameter in SearchQuery() is required in SearchQuery() request.");
 		}
+        if (!is_string($resource)){
+            throw new \Exception("Resource parameter in SearchQuery() is required to be of type 'string'.");
+        }
 		if (empty($class)) {
-			die("Class parameter is required in SearchQuery() request.");
+            throw new \Exception("Class parameter is required in SearchQuery() request.");
 		}
+        if (!is_string($class)){
+            throw new \Exception("Class parameter in SearchQuery() is required to be of type 'string'.");
+        }
+        if (!is_string($query)){
+            throw new \Exception("Query parameter in SearchQuery() is required to be of type 'string'.");
+        }
+        if (!is_array($optional_params)){
+            throw new \Exception("Optional parameters in SearchQuery() are required to be of type 'array'.");
+        }
 		if (empty($this->capability_url['Search'])) {
-			die("SearchQuery() called but unable to find Search location.  Failed login?\n");
+            $message = "SearchQuery() called but unable to find Search location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
 		}
 
 		$this->int_result_pointer++;
@@ -626,26 +910,40 @@ class phRETS {
 		return $this->int_result_pointer;
 	}
 
-	public function Search($resource, $class, $query = "", $optional_params = array()) {
+    /**
+     * @param string $resource
+     * @param string $class
+     * @param string $query
+     * @param array $optional_params
+     * @return array
+     * @throws \Exception
+     */
+    public function search($resource, $class, $query = "", $optional_params = array())
+    {
 		$data_table = array();
-
-		$int_result_pointer = $this->SearchQuery($resource, $class, $query, $optional_params);
-
+		$int_result_pointer = $this->searchQuery($resource, $class, $query, $optional_params);
 		while ($row = $this->FetchRow($int_result_pointer)) {
 			$data_table[] = $row;
 		}
-
 		return $data_table;
 	}
 
-	public function GetAllLookupValues($resource) {
+    /**
+     * @param string $resource
+     * @throws \Exception
+     * @return array|bool
+     */
+    public function getAllLookupValues($resource)
+    {
 		$this->reset_error_info();
 
 		if (empty($resource)) {
-			die("Resource parameter is required in GetAllLookupValues() request.");
+			throw new \Exception("Resource parameter is required in GetAllLookupValues() request.");
 		}
 		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetAllLookupValues() called but unable to find GetMetadata location.  Failed login?\n");
+			$message = "GetAllLookupValues() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
 		}
 
 		// make request
@@ -714,18 +1012,27 @@ class phRETS {
 		return $this_table;
 	}
 
-	public function GetLookupValues($resource, $lookupname) {
+    /**
+     * @param string $resource
+     * @param string $lookupname
+     * @throws \Exception
+     * @return array
+     */
+    public function getLookupValues($resource, $lookupname)
+    {
 		$this->reset_error_info();
 
 		if (empty($resource)) {
-			die("Resource parameter is required in GetLookupValues() request.");
+			throw new \Exception("Resource parameter is required in GetLookupValues() request.");
 		}
 		if (empty($lookupname)) {
-			die("Lookup Name parameter is required in GetLookupValues() request.");
+            throw new \Exception("Lookup Name parameter is required in GetLookupValues() request.");
 		}
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetLookupValues() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getLookupValues() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// make request
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -782,17 +1089,23 @@ class phRETS {
 				}
 			}
 		}
-
 		// return the big array
 		return $this_table;
 	}
 
-	public function GetMetadataResources($id = 0) {
+    /**
+     * @param int $id
+     * @return array|bool
+     */
+    public function getMetadataResources($id = 0)
+    {
 		$this->reset_error_info();
 
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadataResources() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadataResources() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// make request
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -856,24 +1169,44 @@ class phRETS {
 		return $this_resource;
 	}
 
-	// alias to GetMetadataResources (deprecated?)
-	public function GetMetadataInfo($id = 0) {
-		return $this->GetMetadataResources($id);
+    /**
+     * @deprecated alias to getMetadataResources
+     * @param int $id
+     * @return array|bool
+     */
+    public function getMetadataInfo($id = 0)
+    {
+		return $this->getMetadataResources($id);
 	}
 
-	public function GetMetadataTable($resource, $class) {
+    /**
+     * @param string $resource
+     * @param string $class
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function getMetadataTable($resource, $class)
+    {
 		$this->reset_error_info();
 
 		$id = $resource.':'.$class;
-		if (empty($resource)) {
-			die("Resource parameter is required in GetMetadata() request.");
-		}
-		if (empty($class)) {
-			die("Class parameter is required in GetMetadata() request.");
-		}
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadataTable() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($resource)) {
+            throw new \Exception("Resource parameter in GetMetadataTable() is required in SearchQuery() request.");
+        }
+        if (!is_string($resource)){
+            throw new \Exception("Resource parameter in GetMetadataTable() is required to be of type 'string'.");
+        }
+        if (empty($class)) {
+            throw new \Exception("Class parameter is required in GetMetadataTable() request.");
+        }
+        if (!is_string($class)){
+            throw new \Exception("Class parameter in GetMetadataTable() is required to be of type 'string'.");
+        }
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadataTable() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// request specific metadata
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -945,22 +1278,51 @@ class phRETS {
 		return $this_table;
 	}
 
-	public function GetMetadata($resource, $class) {
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadata() called but unable to find GetMetadata location.  Failed login?\n");
-		}
-		return $this->GetMetadataTable($resource, $class);
+    /**
+     * @param string $resource
+     * @param string $class
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function getMetadata($resource, $class)
+    {
+        if (empty($resource)) {
+            throw new \Exception("Resource parameter in GetMetadataTable() is required in SearchQuery() request.");
+        }
+        if (!is_string($resource)){
+            throw new \Exception("Resource parameter in GetMetadataTable() is required to be of type 'string'.");
+        }
+        if (empty($class)) {
+            throw new \Exception("Class parameter is required in GetMetadataTable() request.");
+        }
+        if (!is_string($class)){
+            throw new \Exception("Class parameter in GetMetadataTable() is required to be of type 'string'.");
+        }
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadata() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
+		return $this->getMetadataTable($resource, $class);
 	}
 
-	public function GetMetadataObjects($id) {
+    /**
+     * @param $id
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function getMetadataObjects($id)
+    {
 		$this->reset_error_info();
 
 		if (empty($id)) {
-			die("ID parameter is required in GetMetadataObjects() request.");
+			throw new \Exception("ID parameter is required in GetMetadataObjects() request.");
 		}
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadataObjects() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadataObjects() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// request basic metadata information
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -1016,15 +1378,23 @@ class phRETS {
 		return $return_data;
 	}
 
-	public function GetMetadataClasses($id) {
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
+    public function getMetadataClasses($id)
+    {
 		$this->reset_error_info();
 
 		if (empty($id)) {
-			die("ID parameter is required in GetMetadataClasses() request.");
+			throw new \Exception("ID parameter is required in GetMetadataClasses() request.");
 		}
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadataClasses() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadataObjects() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// request basic metadata information
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -1084,12 +1454,23 @@ class phRETS {
 		return $return_data;
 	}
 
-	public function GetMetadataTypes($id = 0) {
+    /**
+     * @param int $id
+     * @throws \Exception
+     * @return array
+     */
+    public function getMetadataTypes($id = 0)
+    {
 		$this->reset_error_info();
 
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetMetadataTypes() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if(!is_numeric($id)){
+            throw new \Exception("ID parameter of getMetadataTypes() must be of type 'numeric'");
+        }
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getMetadataTypes() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// request basic metadata information
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -1149,15 +1530,28 @@ class phRETS {
 		return $return_data;
 	}
 
-	public function GetServerSoftware() {
+    /**
+     * @return string
+     */
+    public function getServerSoftware()
+    {
 		return $this->server_software;
 	}
 
-	public function GetServerVersion() {
+    /**
+     * @return string
+     */
+    public function getServerVersion()
+    {
 		return $this->server_version;
 	}
 
-	public function CheckAuthSupport($type = "") {
+    /**
+     * @param string $type
+     * @return bool
+     */
+    public function checkAuthSupport($type = "")
+    {
 		if ($type == "basic") {
 			return $this->auth_support_basic;
 		}
@@ -1168,7 +1562,11 @@ class phRETS {
 		return false;
 	}
 
-	public function GetAllTransactions() {
+    /**
+     * @return array
+     */
+    public function getAllTransactions()
+    {
 		// read through capability_urls read during the Login and return
 		$transactions = array();
 		if (is_array($this->capability_url)) {
@@ -1179,11 +1577,19 @@ class phRETS {
 		return $transactions;
 	}
 
-	public function LastRequestURL() {
+    /**
+     * @return string
+     */
+    public function lastRequestURL()
+    {
 		return $this->last_request_url;
 	}
 
-	public function GetLoginURL() {
+    /**
+     * @return bool|string
+     */
+    public function getLoginURL()
+    {
 		// see if the saved Login URL has a hostname included.
 		// if not, make it based on the URL given in the Connect() call
 		$parse_results = parse_url($this->capability_url['Login'], PHP_URL_HOST);
@@ -1202,12 +1608,18 @@ class phRETS {
 		return $request_url;
 	}
 
-	public function GetServerInformation() {
+    /**
+     * @return array|bool
+     */
+    public function getServerInformation()
+    {
 		$this->reset_error_info();
 
-		if (empty($this->capability_url['GetMetadata'])) {
-			die("GetServerInformation() called but unable to find GetMetadata location.  Failed login?\n");
-		}
+        if (empty($this->capability_url['GetMetadata'])) {
+            $message = "getServerInformation() called but unable to find GetMetadata location.  Failed login?\n";
+            $this->addMessage($message);
+            return false;
+        }
 
 		// request server information
 		$result = $this->RETSRequest($this->capability_url['GetMetadata'],
@@ -1275,15 +1687,20 @@ class phRETS {
 				);
 	}
 
-	public function Disconnect() {
+    /**
+     * @return bool
+     */
+    public function disconnect()
+    {
 		$this->reset_error_info();
 
 		if (empty($this->capability_url['Logout'])) {
-			die("Disconnect() called but unable to find Logout location.  Failed login?\n");
+			$message = "Disconnect() called but unable to find Logout location.  Failed login?\n";
+            $this->addMessage($message);
 		}
 
 		// make request
-		$result = $this->RETSRequest($this->capability_url['Logout']);
+		$result = $this->retsRequest($this->capability_url['Logout']);
 		if (!$result) {
 			return false;
 		}
@@ -1304,18 +1721,39 @@ class phRETS {
 		return true;
 	}
 
-	public function Connect($login_url, $username, $password, $ua_pwd = "") {
+    /**
+     * @param string $login_url
+     * @param string $username
+     * @param string $password
+     * @param string $ua_pwd
+     * @return bool
+     * @throws \Exception
+     */
+    public function connect($login_url, $username, $password, $ua_pwd = "")
+    {
 		$this->reset_error_info();
 
 		if (empty($login_url)) {
-			die("PHRETS: Login URL missing from Connect()");
+			throw new \Exception("PHRETS: Login URL missing from Connect()");
 		}
+        if(!is_string($login_url)){
+            throw new \Exception("Login Url parameter of connect() must be of type 'string'");
+        }
 		if (empty($username)) {
-			die("PHRETS: Username missing from Connect()");
+            throw new \Exception("PHRETS: Username missing from Connect()");
 		}
+        if(!is_string($username)){
+            throw new \Exception("Username parameter of connect() must be of type 'string'");
+        }
 		if (empty($password)) {
-			die("PHRETS: Password missing from Connect()");
+            throw new \Exception("PHRETS: Password missing from Connect()");
 		}
+        if(!is_string($password)){
+            throw new \Exception("Password parameter of connect() must be of type 'string'");
+        }
+        if(!is_string($ua_pwd)){
+            throw new \Exception("Ua Password parameter of connect() must be of type 'string'");
+        }
 		if (empty($this->static_headers['RETS-Version'])) {
 			$this->AddHeader("RETS-Version", "RETS/1.5");
 		}
@@ -1370,7 +1808,8 @@ class phRETS {
 				curl_setopt($this->ch, CURLOPT_STDERR, $this->debug_log);
 			}
 			else {
-				echo "Unable to save debug log to {$this->debug_file}\n";
+				$message = "Unable to save debug log to {$this->debug_file}\n";
+                $this->addMessage($message);
 			}
 		}
 		curl_setopt($this->ch, CURLOPT_HEADER, false);
@@ -1390,7 +1829,7 @@ class phRETS {
 		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		// make request to Login transaction
-		$result =  $this->RETSRequest($this->capability_url['Login']);
+		$result =  $this->retsRequest($this->capability_url['Login']);
 		if (!$result) {
 			return false;
 		}
@@ -1480,25 +1919,61 @@ class phRETS {
 		}
 	}
 
-	public function LastRequest() {
+    /**
+     * @return array
+     */
+    public function lastRequest()
+    {
 		// return replycode and replytext from last request
 		return $this->last_request;
 	}
 
-	public function AddHeader($name, $value) {
+    /**
+     * @param string $name
+     * @param string $value
+     * @throws \Exception
+     * @return bool
+     */
+    public function addHeader($name, $value)
+    {
+        if(!is_string($name)){
+            throw new \Exception("Name parameter of addHeader() must be of type 'string'");
+        }
+        if(!is_string($value)){
+            throw new \Exception("Value parameter of addHeader() must be of type 'string'");
+        }
 		// add static header for cURL requests
 		$this->static_headers[$name] = $value;
 		return true;
 	}
 
-	public function DeleteHeader($name) {
+    /**
+     * @param string $name
+     * @throws \Exception
+     * @return bool
+     */
+    public function deleteHeader($name)
+    {
+        if(!is_string($name)){
+            throw new \Exception("Name parameter of deleteHeader() must be of type 'string'");
+        }
 		// delete static header from cURL requests
 		unset($this->static_headers[$name]);
 		return true;
 	}
 
-	public function ParseXMLResponse($data = "") {
+    /**
+     * @param string $data
+     * @throws \Exception
+     * @return bool|\SimpleXMLElement
+     */
+    public function parseXmlResponse($data = "")
+    {
 		$this->reset_error_info();
+
+        if(!is_string($data)){
+            throw new \Exception("Data parameter of parseXmlResponse() must be of type 'string'");
+        }
 
 		if (!empty($data)) {
 			// parse XML function.  ability to replace SimpleXML with something later fairly easily
@@ -1519,7 +1994,14 @@ class phRETS {
 		}
 	}
 
-	public function RETSRequest($action, $parameters = "") {
+    /**
+     * @param string $action
+     * @param string $parameters
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function retsRequest($action, $parameters = "")
+    {
 		$this->reset_error_info();
 
 		$this->last_request = array();
@@ -1530,8 +2012,14 @@ class phRETS {
 		// exposed raw RETS request function.  used internally and externally
 
 		if (empty($action)) {
-			die("RETSRequest called but Action passed has no value.  Failed login?\n");
+			throw new \Exception("RETSRequest called but Action passed has no value.  Failed login?\n");
 		}
+        if(!is_string($action)){
+            throw new \Exception("Action parameter of retsRequest() must be of type 'string'");
+        }
+        if(!is_string($parameters)){
+            throw new \Exception("Parameters parameter of retsRequest() must be of type 'string'");
+        }
 
 		$parse_results = parse_url($action, PHP_URL_HOST);
 		if (empty($parse_results)) {
@@ -1632,7 +2120,17 @@ class phRETS {
 		return array($this->last_response_headers_raw, $response_body);
 	}
 
-	private function read_custom_curl_headers($handle, $call_string) {
+    /**
+     * This function is not called anywhere
+     *
+     * @deprecated ?
+     *
+     * @param $handle
+     * @param string $call_string
+     * @return int
+     */
+    private function read_custom_curl_headers($handle, $call_string)
+    {
 		$this->last_response_headers_raw .= $call_string;
 		$header = null;
 		$value = null;
@@ -1665,7 +2163,11 @@ class phRETS {
 		return strlen($call_string);
 	}
 
-	public function Error() {
+    /**
+     * @return array|bool
+     */
+    public function error()
+    {
 		if (isset($this->error_info['type']) && !empty($this->error_info['type'])) {
 			return $this->error_info;
 		}
@@ -1674,21 +2176,37 @@ class phRETS {
 		}
 	}
 
-	private function set_error_info($type, $code, $text) {
+    /**
+     * @param string $type
+     * @param string $code
+     * @param string $text
+     * @return bool
+     */
+    private function set_error_info($type, $code, $text)
+    {
 		$this->error_info['type'] = $type;
 		$this->error_info['code'] = $code;
 		$this->error_info['text'] = $text;
 		return true;
 	}
 
-	private function reset_error_info() {
+    /**
+     * @return bool
+     */
+    private function reset_error_info()
+    {
 		$this->error_info['type'] = "";
 		$this->error_info['code'] = "";
 		$this->error_info['text'] = "";
 		return true;
 	}
 
-	private function is_server_version($check_version) {
+    /**
+     * @param string $check_version
+     * @return bool
+     */
+    private function is_server_version($check_version)
+    {
 		if ($check_version == "1_5_or_below") {
 			if ($this->GetServerVersion() == "RETS/1.5" || $this->GetServerVersion() == "RETS/1.0") {
 				return true;
@@ -1708,7 +2226,17 @@ class phRETS {
 		return false;
 	}
 
-	private function fix_encoding($in_str) {
+    /**
+     * @param string $in_str
+     * @return mixed|string
+     * @throws \Exception
+     */
+    private function fix_encoding($in_str)
+    {
+        if(!is_string($in_str)){
+            throw new \Exception("In Str parameter of fix_encoding() must be of type 'string'");
+        }
+
 		if ($this->disable_encoding_fix == true || !function_exists("mb_detect_encoding")) {
 			return $in_str;
 		}
@@ -1723,7 +2251,17 @@ class phRETS {
 		}
 	}
 
-	public function ServerDetail($detail) {
+    /**
+     * @param string $detail
+     * @return string
+     * @throws \Exception
+     */
+    public function serverDetail($detail)
+    {
+        if(!is_string($detail)){
+            throw new \Exception("Detail parameter of serverDetail() must be of type 'string'");
+        }
+
 		if (isset($this->server_information[$detail])) {
 			return $this->server_information[$detail];
 		}
@@ -1732,7 +2270,18 @@ class phRETS {
 		}
 	}
 
-	public function SetParam($name, $value) {
+    /**
+     * @param string $name
+     * @param mixed $value
+     * @return bool
+     * @throws \Exception
+     */
+    public function setParam($name, $value)
+    {
+        if(!is_string($name)){
+            throw new \Exception("Name parameter of setParam() must be of type 'string'");
+        }
+
 		switch ($name) {
 			case "cookie_file":
 				$this->cookie_file = $value;
