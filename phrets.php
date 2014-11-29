@@ -58,18 +58,22 @@ class PhRets
      * @var string
      */
     private $server_software;
+
     /**
      * @var array
      */
     private $static_headers = array();
+
     /**
      * @var array
      */
     private $server_information = array();
+
     /**
      * @var string
      */
     private $cookie_file = "";
+    
     /**
      * @var string
      */
