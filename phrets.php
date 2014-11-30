@@ -775,17 +775,13 @@ class PhRets
     }
 
     /**
-     * @param string $data
+     * @param mixed $data
      * @throws \Exception
      * @return bool|\SimpleXMLElement
      */
     public function parseXmlResponse($data = "")
     {
         $this->reset_error_info();
-
-        if (!is_string($data)) {
-            throw new \Exception("Data parameter of parseXmlResponse() must be of type 'string'");
-        }
 
         if (!empty($data)) {
             // parse XML function.  ability to replace SimpleXML with something later fairly easily
@@ -963,7 +959,7 @@ class PhRets
 
             $body = $this->fix_encoding($body);
 
-            $xml = $this->ParseXMLResponse($body);
+            $xml = $this->parseXMLResponse($body);
             if (!$xml) {
                 return false;
             }
@@ -1024,16 +1020,12 @@ class PhRets
     }
 
     /**
-     * @param string $in_str
-     * @return mixed|string
+     * @param mixed $in_str
+     * @return string|bool
      * @throws \Exception
      */
     private function fix_encoding($in_str)
     {
-        if (!is_string($in_str)) {
-            throw new \Exception("In Str parameter of fix_encoding() must be of type 'string'");
-        }
-
         if ($this->disable_encoding_fix == true || !function_exists("mb_detect_encoding")) {
             return $in_str;
         }
