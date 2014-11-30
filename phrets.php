@@ -637,11 +637,11 @@ class PhRets
 
     /**
      * @param string $action
-     * @param string $parameters
+     * @param array $parameters
      * @return array|bool
      * @throws \Exception
      */
-    public function retsRequest($action, $parameters = "")
+    public function retsRequest($action, $parameters = array())
     {
         $this->reset_error_info();
 
@@ -658,8 +658,8 @@ class PhRets
         if (!is_string($action)) {
             throw new \Exception("Action parameter of retsRequest() must be of type 'string'");
         }
-        if (!is_string($parameters)) {
-            throw new \Exception("Parameters parameter of retsRequest() must be of type 'string'");
+        if (!is_array($parameters)) {
+            throw new \Exception("Parameters parameter of retsRequest() must be of type 'array'");
         }
 
         $parse_results = parse_url($action, PHP_URL_HOST);
@@ -673,7 +673,7 @@ class PhRets
 
         // build query string from arguments
         $request_arguments = "";
-        if (is_array($parameters)) {
+        if (count($parameters) > 0) {
             $request_arguments = http_build_query($parameters, '', '&');
         }
 
