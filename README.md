@@ -65,7 +65,7 @@ PHRETS handles the following aspects of RETS communication for you:
 
 This package is not available via Packagist. You will need to add this repo to your `composer.json` file:
 
-`
+```json
 "repositories": [
     {
         "type": "vcs",
@@ -75,7 +75,7 @@ This package is not available via Packagist. You will need to add this repo to y
 "require": {
     "the-notable/phrets": "dev-master"
 }
-`
+```
 
 Afterwards run `composer update` and you're set.
   
