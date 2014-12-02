@@ -23,10 +23,10 @@ The changes are:
 Some methods return false on failure. Some will log messages internally which can be accessed by called the `getMessages()` method.
 
 ```php
-if($Phrets->hasMessages(){
-foreach($Phrets->getMessages() as $message){
-echo $message;
-}
+if($Phrets->hasMessages()){
+    foreach($Phrets->getMessages() as $message){
+        echo $message;
+    }
 }
 ```
 
