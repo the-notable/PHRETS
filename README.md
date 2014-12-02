@@ -61,8 +61,25 @@ PHRETS handles the following aspects of RETS communication for you:
 
 ## Download
 
-**Install via Composer** - Add [the-notable/phrets](https://packagist.org/packages/troydavisson/phrets) to your `composer.json` file, run `composer update` and you're set.  
-**Manual Download** - The source code for PHRETS is available on [GitHub](http://github.com/troydavisson/PHRETS)
+**Install via Composer**
+
+This package is not available via Packagist. You will need to add this repo to your `composer.json` file:
+
+`
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/the-notable/PHRETS"
+    }
+],
+"require": {
+    "the-notable/phrets": "dev-master"
+}
+`
+
+Afterwards run `composer update` and you're set.
+  
+**Manual Download** - The source code for PHRETS is available on [GitHub](http://github.com/the-notable/PHRETS)
 
 
 ## Contribute
