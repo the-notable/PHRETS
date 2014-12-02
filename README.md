@@ -4,7 +4,7 @@ A simple, free, open source PHP library for using [RETS](http://rets.org).
 
 PHP + RETS = PHRETS
 
-## Changes From Orignal phRETS Package
+## Changes From Original phRETS Package
 
 This repo is a fork of the original phRETS package at [troydavisson/phrets](https://packagist.org/packages/troydavisson/phrets).
 
