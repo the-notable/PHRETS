@@ -251,6 +251,18 @@ class PhRets
     }
 
     /**
+     * @return bool
+     */
+    public function hasMessage()
+    {
+        $has_messages = false;
+        if(count($this->messages)){
+            $has_messages = true;
+        }
+        return $has_messages;
+    }
+
+    /**
      * Resets messages to an empty array
      */
     private function clearMessages()

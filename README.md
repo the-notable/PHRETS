@@ -11,15 +11,24 @@ This repo is a fork of the original phRETS package at [troydavisson/phrets](http
 **The original API has NOT been changed**
 
 The changes are:
-* All die() statements have been replaced with Exception()
-* All echo statements now instead save messages to new messages property
-* All methods and properties are now documents according to phpdoc standards
+* All `die()` statements have been replaced with `Exception()`
+* All `echo` statements now instead save messages to new messages property
+* All methods and properties are now documented according to phpdoc standards
+* Changed method names to `camelCase()`
 * Library is now namespaced
-* Added basic parameter type checking to public methods. Incompatible param types throw Exception();
+* Added basic parameter type checking to public methods. Incompatible param types throw `Exception()`.
 
 ### Messages
 
-Some methods return false on failure. Some will log messages internally which can be accessed by called the getMessages() method.
+Some methods return false on failure. Some will log messages internally which can be accessed by called the `getMessages()` method.
+
+```php
+if($Phrets->hasMessages(){
+foreach($Phrets->getMessages() as $message){
+echo $message;
+}
+}
+```
 
 ## Introduction
 
@@ -37,7 +46,7 @@ PHRETS handles the following aspects of RETS communication for you:
 
 ## Download
 
-**Install via Composer** - Add [troydavisson/phrets](https://packagist.org/packages/troydavisson/phrets) to your `composer.json` file, run `composer update` and you're set.  
+**Install via Composer** - Add [the-notable/phrets](https://packagist.org/packages/troydavisson/phrets) to your `composer.json` file, run `composer update` and you're set.  
 **Manual Download** - The source code for PHRETS is available on [GitHub](http://github.com/troydavisson/PHRETS)
 
 
