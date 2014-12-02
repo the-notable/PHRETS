@@ -1,25 +1,27 @@
 <?php
 
-namespace TroyDavisson;
+namespace Notable;
 
 /**
  * Class PhRets
  *
  * PHP library for RETS
  *
- * Copyright (C) 2007-2014 Troy Davisson
- * please submit problem or error reports to https://github.com/troydavisson/PHRETS/issues
+ * Originally forked from Troy Davisson @:
+ * @link https://github.com/troydavisson/PHRETS
+ * @link http://troda.com/projects/phrets/
  *
- * All rights reserved.
+ * This package maintains original license:
+ * All rights reserved by Troy Davisson.
  * Permission is hereby granted, free of charge, to use, copy or modify this software.  Use at your own risk.
  *
  * This library is divided into 2 sections: high level and low level
  *    High level: Helpful functions that take much of the burden out of processing RETS data
  *    Low level: Framework for communicating with a RETS server.  High level functions sit on top of these*
  *
- * @version 1.0.2
- * @link http://troda.com/projects/phrets/
- * @package TroyDavisson
+ * @version 1.0.0
+ * @link https://github.com/the-notable/PHRETS
+ * @package Notable
  */
 class PhRets
 {
@@ -236,12 +238,15 @@ class PhRets
     /**
      * Returns informational messages and resets messages array
      *
-     * @return array
+     * @return array|bool
      */
     public function getMessages()
     {
-        $messages = $this->messages;
-        $this->clearMessages();
+        $messages = false;
+        if(count($this->messages)){
+            $messages = $this->messages;
+            $this->clearMessages();
+        }
         return $messages;
     }
 
