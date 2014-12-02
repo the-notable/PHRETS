@@ -1,13 +1,25 @@
-[![Latest Stable Version](https://poser.pugx.org/troydavisson/PHRETS/v/stable.png)](https://packagist.org/packages/troydavisson/PHRETS)
-[![Total Downloads](https://poser.pugx.org/troydavisson/PHRETS/downloads.png)](https://packagist.org/packages/troydavisson/PHRETS)
-
-
 # PHRETS
 
 A simple, free, open source PHP library for using [RETS](http://rets.org).
 
 PHP + RETS = PHRETS
 
+## Changes From Orignal phRETS Package
+
+This repo is a fork of the original phRETS package at [troydavisson/phrets](https://packagist.org/packages/troydavisson/phrets).
+
+**The original API has NOT been changed**
+
+The changes are:
+* All die() statements have been replaced with Exception()
+* All echo statements now instead save messages to new messages property
+* All methods and properties are now documents according to phpdoc standards
+* Library is now namespaced
+* Added basic parameter type checking to public methods. Incompatible param types throw Exception();
+
+### Messages
+
+Some methods return false on failure. Some will log messages internally which can be accessed by called the getMessages() method.
 
 ## Introduction
 
