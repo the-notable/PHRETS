@@ -30,6 +30,21 @@ if($Phrets->hasMessages()){
 }
 ```
 
+Calling `getMessages()` will return an array of messages **AND** will clear all messages stored internally:
+
+```php
+public function getMessages()
+{
+    $messages = false;
+    if(count($this->messages)){
+        $messages = $this->messages;s
+        $this->clearMessages();
+    }
+    return $messages;
+}
+```
+
+
 ## Introduction
 
 PHRETS provides PHP developers a way to integrate RETS functionality directly within new or existing code. A standard class of functions is made available to developers to connect and interact with a server much like they would with other APIs.
