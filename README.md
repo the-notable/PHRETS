@@ -37,7 +37,7 @@ public function getMessages()
 {
     $messages = false;
     if(count($this->messages)){
-        $messages = $this->messages;s
+        $messages = $this->messages;
         $this->clearMessages();
     }
     return $messages;
