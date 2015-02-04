@@ -6,7 +6,13 @@
     "homepage": "http://github.com/the-notable/PHRETS",
     "authors": [
         {
-            "name": "Daniel Kennedy",
+            "name": "Troy Davisson",
+            "homepage": "http://troda.com",
+            "role": "Developer",
+            "email": "troy.davisson@gmail.com"
+        },
+        {
+            "name": "Daniel Kennedy"
         }
     ],
     "require": {
