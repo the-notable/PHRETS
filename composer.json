@@ -1,15 +1,12 @@
 {
-    "name": "troydavisson/phrets",
+    "name": "the-notable/phrets",
     "type": "library",
     "description": "RETS library in PHP",
     "keywords": ["rets", "mls"],
-    "homepage": "http://github.com/troydavisson/PHRETS",
+    "homepage": "http://github.com/the-notable/PHRETS",
     "authors": [
         {
-            "name": "Troy Davisson",
-            "email": "troy.davisson@gmail.com",
-            "homepage": "http://troda.com",
-            "role": "Developer"
+            "name": "Daniel Kennedy",
         }
     ],
     "require": {
