@@ -2054,6 +2054,7 @@ class PhRets
         // make request to Login transaction
         $result = $this->retsRequest($this->capability_url['Login']);
         if (!$result) {
+            $this->addMessage('retsRequest() did not return a result');
             return false;
         }
 
@@ -2062,6 +2063,7 @@ class PhRets
         // parse body response
         $xml = $this->ParseXMLResponse($body);
         if (!$xml) {
+            $this->addMessage('Unable to parse XML response');
             return false;
         }
 
@@ -2117,6 +2119,7 @@ class PhRets
 
             $result = $this->RETSRequest($this->capability_url['Action']);
             if (!$result) {
+                $this->addMessage('Followup action retsRequest returned no result');
                 return false;
             }
             list($headers, $body) = $result;
@@ -2135,6 +2138,7 @@ class PhRets
             return true;
         } else {
             $this->set_error_info("rets", $this->last_request['ReplyCode'], $this->last_request['ReplyText']);
+            $this->addMessage('Last request returned non-zero reply code');
             return false;
         }
     }
