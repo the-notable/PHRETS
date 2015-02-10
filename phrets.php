@@ -2315,4 +2315,13 @@ class PhRets
 
         return strlen($call_string);
     }
+
+    /**
+     * @return array
+     */
+    public function getCurlInfo()
+    {
+        return curl_getinfo($this->ch);
+    }
+
 }
