@@ -1134,7 +1134,7 @@ class PhRets
             if (isset($this ->search_data[$last_pointer_id])){
                 unset($this->search_data[$last_pointer_id]);
             }
-            
+
             return true;
         } else {
             return false;
