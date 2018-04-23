@@ -1125,7 +1125,7 @@ class PhRets
     public function freeResult($pointer_id)
     {
         if (!empty($pointer_id)) {
-            
+
             unset($this->search_data[$pointer_id]['data']);
             unset($this->search_data[$pointer_id]['delimiter_character']);
             unset($this->search_data[$pointer_id]['column_names']);
@@ -1134,8 +1134,7 @@ class PhRets
             if (isset($this ->search_data[$last_pointer_id])){
                 unset($this->search_data[$last_pointer_id]);
             }
-
-            var_dump($this->search_data);
+            
             return true;
         } else {
             return false;
